@@ -52,15 +52,16 @@ public class SecurityConfig {
                                 "/api/v1/auth/signup",
                                 "/api/v1/auth/login",
                                 "/api/v1/auth/reissue",
-                                "/api/v1/auth/oauth/callback/**",
                                 "/h2-console/**",
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**"
                         ).permitAll()
+
+                        .requestMatchers(HttpMethod.POST, "/api/v1/auth/oauth/callback/**").permitAll()
                         .requestMatchers("/api/v1/auth/logout").authenticated()
 
                         // 컨텐츠
-                        .requestMatchers("api/v1/contents/**").permitAll()
+                        .requestMatchers("/api/v1/contents/**").permitAll()
 
                         // 다이어리
                         .requestMatchers(HttpMethod.GET, "/api/v1/diaries/**").permitAll()
@@ -104,8 +105,8 @@ public class SecurityConfig {
                 "http://localhost:3000",
                 "http://127.0.0.1:3000",
                 "https://ourlog.vercel.app",
-                "https://www.ourlog.shop",
-                "https://ourlog.shop"
+                "https://ourlog.shop",
+                "https://www.ourlog.shop"
         ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
